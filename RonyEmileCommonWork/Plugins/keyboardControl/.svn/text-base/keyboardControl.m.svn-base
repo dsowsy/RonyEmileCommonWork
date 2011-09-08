@@ -1,0 +1,54 @@
+//
+//  keyboardControl.m
+//  SMS Composer plugin for PhoneGap
+//
+
+#import "keyboardControl.h"
+
+@implementation keyboardControl
+
+
+- (void) hide:(NSMutableArray*)arguments withDict: (NSMutableDictionary*)options
+{
+    NSString *indexId = [arguments objectAtIndex:0];
+    NSLog(@"showing ios IOS keyboard with element :  %@" , indexId);
+    [self.webView endEditing:YES];
+}  
+
+
+
+- (void)show:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
+{
+     NSString *indexId = [arguments objectAtIndex:0];
+     NSLog(@"show ios IOS keyboard with element :  %@" , indexId);
+    
+    /**
+     options should has the input field id or textarea id
+    */
+    
+    UITextField *hiddenTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+    
+    // do stuff on the hidden field so the autocorrection doesn't show
+    hiddenTextField.autocorrectionType = NO;
+    hiddenTextField.autocapitalizationType= NO;
+    
+
+    
+    // Peter : add some code here to capture the keyboard input and inject it in the web view
+    
+    // this is opening the keyboard but i have no clue how to capture the blur if possible
+    // when the data change call this
+    //
+    //  NSString * jsCallBack = [NSString stringWithFormat:@"window.getElementById('inputId').value = hidden text field value when it changes"];    
+    //[self.webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    
+    [self.webView addSubview:hiddenTextField];
+    [hiddenTextField becomeFirstResponder];
+    [hiddenTextField release];
+}  
+
+
+
+
+
+@end
